@@ -1,0 +1,17 @@
+parameters:
+    m6.firewall.lists:   ~
+    m6.firewall.configs: ~
+    m6.firewall.class:   M6Web\Bundle\FirewallBundle\Firewall\Firewall
+
+services:
+    m6.firewall.provider:
+        class: M6Web\Bundle\FirewallBundle\Firewall\Provider
+        arguments: [@service_container, %m6.firewall.lists%, %m6.firewall.configs%]
+        calls:
+            - ['setFirewallClass', [%m6.firewall.class%]]
+
+    m6.firewall.controller_listener:
+        class: M6Web\Bundle\FirewallBundle\Controller\Listener
+        tags:
+          - { name: kernel.event_listener, event: kernel.controller, method: onCoreController, priority:-255 }
+        arguments: [@annotation_reader, @m6.firewall.provider]

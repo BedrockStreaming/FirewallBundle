@@ -1,0 +1,27 @@
+{
+    "name": "m6web/firewall-bundle",
+    "type": "symfony-bundle",
+    "description" : "Bundle providing IP filtering features for controllers and actions",
+    "keywords": ["firewall","IP","filtering","symfony","bundle"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "M6Web",
+            "email": "opensource@m6web.fr",
+            "homepage": "http://tech.m6web.fr/"
+        }
+    ],
+    "autoload": {
+        "psr-0": {"M6Web\\Bundle\\FirewallBundle": ""}
+    },
+    "target-dir": "M6Web/Bundle/FirewallBundle",
+    "require": {
+        "php": ">=5.4.0",
+        "m6/firewall": "master-dev"
+    },
+    "require-dev": {
+        "atoum/atoum": "master-dev",
+        "atoum/atoum-bundle": "master-dev",
+        "symfony/symfony": ">=2.2"
+    }
+}
