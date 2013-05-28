@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder,
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class FirewallExtension extends Extension
+class M6WebFirewallExtension extends Extension
 {
     /**
      * {@inheritDoc}
@@ -37,12 +37,12 @@ class FirewallExtension extends Extension
 
     protected function configsLoad(array $config, ContainerBuilder $container)
     {
-        $container->setParameter('m6.firewall.configs', $config);
+        $container->setParameter('m6web.firewall.configs', $config);
     }
 
     protected function listsLoad(array $config, ContainerBuilder $container)
     {
-        $container->setParameter('m6.firewall.lists', $config);
+        $container->setParameter('m6web.firewall.lists', $config);
     }
 
     protected function flatLists(array &$configs)
@@ -67,5 +67,10 @@ class FirewallExtension extends Extension
         $list = $return;
 
         return $list;
+    }
+
+    public function getAlias()
+    {
+        return 'm6web_firewall';
     }
 }
