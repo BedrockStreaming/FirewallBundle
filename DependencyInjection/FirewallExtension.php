@@ -37,12 +37,12 @@ class FirewallExtension extends Extension
 
     protected function configsLoad(array $config, ContainerBuilder $container)
     {
-        $container->setParameter('m6.firewall.configs', $config);
+        $container->setParameter('m6web.firewall.configs', $config);
     }
 
     protected function listsLoad(array $config, ContainerBuilder $container)
     {
-        $container->setParameter('m6.firewall.lists', $config);
+        $container->setParameter('m6web.firewall.lists', $config);
     }
 
     protected function flatLists(array &$configs)

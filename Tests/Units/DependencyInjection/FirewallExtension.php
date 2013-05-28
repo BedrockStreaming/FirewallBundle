@@ -65,9 +65,9 @@ class FirewallExtension extends Units\Test
         $loader->load($this->configs, $container);
 
         $this->assert
-            ->string($container->getParameter('m6.firewall.class'))
+            ->string($container->getParameter('m6web.firewall.class'))
                 ->isEqualTo('M6Web\Bundle\FirewallBundle\Firewall\Firewall')
-            ->array($container->getParameter('m6.firewall.lists'))
+            ->array($container->getParameter('m6web.firewall.lists'))
                 ->isEqualTo(array(
                     'default' => array(
                         '::1',
@@ -79,7 +79,7 @@ class FirewallExtension extends Units\Test
                         '40.30.20.10',
                     ),
                 ))
-            ->array($container->getParameter('m6.firewall.configs'))
+            ->array($container->getParameter('m6web.firewall.configs'))
                 ->isEqualTo(array(
                     'default' => array(
                         'default_state' => true,
@@ -97,7 +97,7 @@ class FirewallExtension extends Units\Test
                     ),
                 ))
 
-            ->object($providerDefinition = $container->getDefinition('m6.firewall.provider'))
+            ->object($providerDefinition = $container->getDefinition('m6web.firewall.provider'))
             ->string($providerDefinition->getClass())
                 ->isEqualTo('M6Web\Bundle\FirewallBundle\Firewall\Provider')
             ->object($providerDefinition->getArgument(0))
@@ -105,15 +105,15 @@ class FirewallExtension extends Units\Test
             ->string((string) $providerDefinition->getArgument(0))
                 ->isEqualTo('service_container')
             ->string($providerDefinition->getArgument(1))
-                ->isEqualTo('%m6.firewall.lists%')
+                ->isEqualTo('%m6web.firewall.lists%')
             ->string($providerDefinition->getArgument(2))
-                ->isEqualTo('%m6.firewall.configs%')
+                ->isEqualTo('%m6web.firewall.configs%')
             ->array($providerDefinition->getMethodCalls())
                 ->hasSize(1)
             ->array($providerDefinition->getMethodCalls()[0])
-                ->isEqualTo(array('setFirewallClass', array('%m6.firewall.class%')))
+                ->isEqualTo(array('setFirewallClass', array('%m6web.firewall.class%')))
 
-            ->object($listenerDefinition = $container->getDefinition('m6.firewall.controller_listener'))
+            ->object($listenerDefinition = $container->getDefinition('m6web.firewall.controller_listener'))
             ->string($listenerDefinition->getClass())
                 ->isEqualTo('M6Web\Bundle\FirewallBundle\Controller\Listener')
             ->object($listenerDefinition->getArgument(0))
@@ -123,7 +123,7 @@ class FirewallExtension extends Units\Test
             ->object($listenerDefinition->getArgument(1))
                 ->isInstanceOf('Symfony\Component\DependencyInjection\Reference')
             ->string((string) $listenerDefinition->getArgument(1))
-                ->isEqualTo('m6.firewall.provider')
+                ->isEqualTo('m6web.firewall.provider')
             ->array($listenerDefinition->getTag('kernel.event_listener'))
                 ->isEqualTo(array(array('event' => 'kernel.controller', 'method' => 'onCoreController', 'priority' => -255)))
             ;
