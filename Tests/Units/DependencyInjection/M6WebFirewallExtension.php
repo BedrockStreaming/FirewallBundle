@@ -7,12 +7,12 @@ use atoum\AtoumBundle\Test\Units;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-use M6Web\Bundle\FirewallBundle\DependencyInjection\FirewallExtension as FirewallExt;
+use M6Web\Bundle\FirewallBundle\DependencyInjection\M6WebFirewallExtension as FirewallExt;
 
 /**
  * Test of the FirewallBundle extension declaration
  */
-class FirewallExtension extends Units\Test
+class M6WebFirewallExtension extends Units\Test
 {
     protected $configs = array(
         array(
@@ -46,9 +46,11 @@ class FirewallExtension extends Units\Test
             ),
             'lists' => array(
                 'default' => array(
-                    '::1',
-                    '192.168.1.*',
-                    '192.168.0.0-192.168.0.254',
+                    'ipv6' => array('::1'),
+                    'ipv4' => array(
+                        '192.168.1.*',
+                        '192.168.0.0-192.168.0.254',
+                    ),
                 ),
             ),
         )

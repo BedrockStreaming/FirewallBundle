@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder,
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class FirewallExtension extends Extension
+class M6WebFirewallExtension extends Extension
 {
     /**
      * {@inheritDoc}

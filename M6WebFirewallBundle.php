@@ -7,6 +7,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * class FirewallBundle
  */
-class FirewallBundle extends Bundle
+class M6WebFirewallBundle extends Bundle
 {
 }
