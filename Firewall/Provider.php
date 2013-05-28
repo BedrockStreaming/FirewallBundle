@@ -211,11 +211,11 @@ class Provider
      * @param Firewall $firewall Firewall
      * @param string   $param    Parameter name
      * @param string   $value    Parameter value
-     * @param array    &$config  Reference to the configuration
+     * @param array    $config   Reference to the configuration
      *
      * @return $this
      */
-    protected function setDefault(FirewallInterface $firewall, $param, $value, &$config)
+    protected function setDefault(FirewallInterface $firewall, $param, $value, $config)
     {
         $configModel = $this->configModel[$param];
 
@@ -226,7 +226,7 @@ class Provider
                 }
                 break;
             case 'entries':
-                $this->resolveSingleEntries($config, $value);
+                $this->setEntries($firewall, $config, $value);
                 break;
             default:
                 $method = $configModel['method'];
@@ -261,11 +261,11 @@ class Provider
     /**
      * Set up firewall lists from independent input
      *
-     * @param array &$config Reference to the configuration
+     * @param array $config Reference to the configuration
      *
      * @return $this
      */
-    protected function resolveSingleEntries(&$config)
+    protected function setEntries(FirewallInterface $firewall, $config)
     {
         $entries = (isset($config['entries']) ? $config['entries'] : array());
 
@@ -273,13 +273,11 @@ class Provider
         $whiteEntries = array_keys($entries, true);
 
         if (count($blackEntries)) {
-            $this->lists['blackedOptions']  = $blackEntries;
-            $config['lists']['blackedOptions'] = false;
+            $firewall->setList($blackEntries, 'blackedOptions', false);
         }
 
         if (count($whiteEntries)) {
-            $this->lists['whitedOptions']  = $whiteEntries;
-            $config['lists']['whitedOptions'] = true;
+            $firewall->setList($whiteEntries, 'whitedOptions', true);
         }
 
         return $this;
