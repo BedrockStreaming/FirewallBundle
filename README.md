@@ -29,7 +29,7 @@ class AppKernel extends \Symfony\Component\HttpKernel\Kernel
     public function registerBundles()
     {
         $bundles = array(
-            new M6Web/Bundle/FirewallBundle/FirewallBundle(),
+            new M6Web\Bundle\FirewallBundle\M6WebFirewallBundle(),
         );
     }
 }
@@ -40,7 +40,7 @@ class AppKernel extends \Symfony\Component\HttpKernel\Kernel
 #### Configuration
 
 ```yaml
-m6_firewall:
+m6web_firewall:
     lists:             	                   # Define some IP lists into the Firewall Provider
         self: 				                    # Define a list named "self"
             - '127.0.0.1' 			                # IPV4

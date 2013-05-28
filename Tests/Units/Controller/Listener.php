@@ -6,8 +6,7 @@ require_once __DIR__.'/../../bootstrap.php';
 use atoum\AtoumBundle\Test\Units;
 
 use M6Web\Bundle\FirewallBundle\Controller,
-    M6Web\Bundle\FirewallBundle\Firewall\Provider,
-    M6Web\Bundle\FirewallBundle\Tests\Units\Firewall\Provider as ProviderTest;
+    M6Web\Bundle\FirewallBundle\Firewall\Provider;
 
 /**
  * Controller listener test
@@ -35,7 +34,7 @@ class Listener extends Units\Test
             }
         };
 
-        $provider = new Provider($container, ProviderTest::$lists, ProviderTest::$configs);
+        $provider = new Provider($container, array(), array());
         $reader   = new \Mock\AnnotationReader();
 
         $listener = new Controller\Listener($reader, $provider);

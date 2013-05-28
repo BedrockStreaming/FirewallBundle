@@ -8,7 +8,7 @@ use atoum\AtoumBundle\Test\Units;
 use M6Web\Bundle\FirewallBundle\Annotation\Firewall as FirewallAnnotation;
 
 /**
- * Firewall annoation class test
+ * Firewall annotation class test
  */
 class Firewall extends Units\Test
 {
@@ -34,9 +34,6 @@ class Firewall extends Units\Test
         ),
     );
 
-    /**
-     * Instantiation test
-     */
     public function testConstructor()
     {
         $annotation = new FirewallAnnotation($this->data);
@@ -55,6 +52,37 @@ class Firewall extends Units\Test
                     $this->assert
                         ->variable($this->data[$name])
                             ->isIdenticalTo($annotation->options[$name])
+                    ;
+                    break;
+            }
+        }
+    }
+
+    public function testConstructorWithoutData()
+    {
+        $annotation = new FirewallAnnotation(array());
+
+        $this->assert
+            ->variable($annotation->config)
+                ->isNull()
+            ->variable($annotation->actions)
+                ->isNull()
+        ;
+
+        foreach ($annotation->options as $name => $value) {
+            switch ($name) {
+                case 'entries':
+                case 'lists':
+                    $this->assert
+                        ->array($value)
+                            ->isEmpty()
+                    ;
+                    break;
+
+                default:
+                    $this->assert
+                        ->variable($value)
+                            ->isNull()
                     ;
                     break;
             }

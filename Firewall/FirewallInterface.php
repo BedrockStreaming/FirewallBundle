@@ -37,7 +37,7 @@ interface FirewallInterface
      *
      * @return string
      */
-    public function getIp();
+    public function getIpAddress();
 
     /**
      * Add a list
