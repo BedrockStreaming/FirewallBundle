@@ -9,4 +9,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class M6WebFirewallBundle extends Bundle
 {
+    public function getContainerExtension()
+    {
+        return new DependencyInjection\M6WebFirewallExtension();
+    }
 }

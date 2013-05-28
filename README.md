@@ -29,7 +29,7 @@ class AppKernel extends \Symfony\Component\HttpKernel\Kernel
     public function registerBundles()
     {
         $bundles = array(
-            new M6Web/Bundle/FirewallBundle/FirewallBundle(),
+            new M6Web/Bundle/FirewallBundle/M6WebFirewallBundle(),
         );
     }
 }

@@ -68,4 +68,9 @@ class M6WebFirewallExtension extends Extension
 
         return $list;
     }
+
+    public function getAlias()
+    {
+        return 'm6web_firewall';
+    }
 }
