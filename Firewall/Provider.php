@@ -229,8 +229,10 @@ class Provider
                 $this->setEntries($firewall, $config, $value);
                 break;
             default:
-                $method = $configModel['method'];
-                $firewall->$method($value);
+                if (!is_null($value)) {
+                    $method = $configModel['method'];
+                    $firewall->$method($value);
+                }
         }
 
         return $this;
