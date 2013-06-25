@@ -48,7 +48,7 @@ interface FirewallInterface
      *
      * @return $this
      */
-    public function setList(array $list, $listName, $state=null);
+    public function addList(array $list, $listName, $state=null);
 
     /**
      * Set default returned value

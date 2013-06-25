@@ -251,7 +251,7 @@ class Provider
         foreach ($lists as $listName => $state) {
             if (isset($this->lists[$listName])) {
                 $list = $this->lists[$listName];
-                $firewall->setList($list, $listName, $state);
+                $firewall->addList($list, $listName, $state);
             } else {
                 throw new \Exception(sprintf('Firewall list "%s" not found.', $listName));
             }
@@ -275,11 +275,11 @@ class Provider
         $whiteEntries = array_keys($entries, true);
 
         if (count($blackEntries)) {
-            $firewall->setList($blackEntries, 'blackedOptions', false);
+            $firewall->addList($blackEntries, 'blackedOptions', false);
         }
 
         if (count($whiteEntries)) {
-            $firewall->setList($whiteEntries, 'whitedOptions', true);
+            $firewall->addList($whiteEntries, 'whitedOptions', true);
         }
 
         return $this;
