@@ -94,9 +94,9 @@ class Provider extends Units\Test
         $provider = $this->getProvider();
         $provider->setFirewallClass('\mock\M6Web\Bundle\FirewallBundle\Firewall\FirewallInterface');
         $controller = new \atoum\mock\controller();
-        $setListCalls = array();
-        $controller->setList = function () use (&$setListCalls) {
-            $setListCalls[] = func_get_args();
+        $addListCalls = array();
+        $controller->addList = function () use (&$addListCalls) {
+            $addListCalls[] = func_get_args();
         };
 
         $firewall = $provider->getFirewall('default', array(
@@ -126,24 +126,24 @@ class Provider extends Units\Test
                     ->once()
         ;
         $this->assert
-            ->array($setListCalls)
+            ->array($addListCalls)
                 ->hasSize(4)
-            ->array($setListCalls[0])
+            ->array($addListCalls[0])
                 ->isEqualTo(array(array(
                     '::1',
                     '192.168.1.*',
                     '192.168.0.0-192.168.0.254',
                 ), 'default', true))
-            ->array($setListCalls[1])
+            ->array($addListCalls[1])
                 ->isEqualTo(array(array(
                     '10.20.30.40',
                     '40.30.20.10',
                 ), 'partners', false))
-            ->array($setListCalls[2])
+            ->array($addListCalls[2])
                 ->isEqualTo(array(array(
                     '192.168.1.1',
                 ), 'blackedOptions', false))
-            ->array($setListCalls[3])
+            ->array($addListCalls[3])
                 ->isEqualTo(array(array(
                     '127.0.0.1',
                 ), 'whitedOptions', true))

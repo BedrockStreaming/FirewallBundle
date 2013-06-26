@@ -162,7 +162,7 @@ class MyBundleController extends Controller
 
 ```
 $ php composer.phar install --dev
-$ ./vendor/bin/atoum -d src/
+$ ./vendor/bin/atoum -d Tests/
 ```
 
 ## Credits
