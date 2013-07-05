@@ -18,7 +18,7 @@ class RequestListener extends Units\Test
 
 
     /**
-     * Instantiation test
+     * test on request with a request matching pattern
      *
      * @return Request
      */
@@ -48,7 +48,7 @@ class RequestListener extends Units\Test
     }
 
     /**
-     * Instantiation test
+     * test on request with a request not matching pattern
      *
      * @return Request
      */
@@ -64,6 +64,40 @@ class RequestListener extends Units\Test
 
 
         $mockedProvider = $this->getMockedProvider();
+
+        $requestListener = new TestedClass($mockedProvider);
+
+        $this->if($requestListener)
+            ->then($requestListener->onRequest($event))
+            ->mock($mockedProvider)
+                ->call('getPatterns')
+                    ->once()
+                ->call('getFirewall')
+                    ->never();
+    }
+
+    /**
+     * test on request with no patterns
+     *
+     * @return Request
+     */
+    public function testOnRequestWithNoPatterns()
+    {
+        $request = \Symfony\Component\HttpFoundation\Request::create('/toto');
+
+
+
+        $mockKernel = new \mock\Symfony\Component\HttpKernel\HttpKernelInterface();
+
+        $event = new \Symfony\Component\HttpKernel\Event\GetResponseEvent($mockKernel, $request, null);
+
+
+        $mockedProvider = $this->getMockedProvider();
+
+        $mockedProvider->getMockController()->getPatterns = function() {
+
+            return null;
+        };
 
         $requestListener = new TestedClass($mockedProvider);
 
