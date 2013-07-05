@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\RequestMatcher;
  *
  * @author Jérémy Jourdin <jjourdin.externe@m6.fr>
  */
-class Provider
+class Provider implements ProviderInterface
 {
     /**
      * @var array|null $lists Lists of predefined named ip

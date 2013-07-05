@@ -6,6 +6,7 @@ require_once __DIR__.'/../../bootstrap.php';
 use atoum\AtoumBundle\Test\Units;
 
 use M6Web\Bundle\FirewallBundle\Firewall;
+use Symfony\Component\HttpFoundation\RequestMatcher;
 
 /**
  * Firewall manager test
@@ -34,6 +35,13 @@ class Provider extends Units\Test
         ),
     );
 
+    protected $patterns = array(
+        'pattern1' => array(
+            'config' => 'default',
+            'path' => '/test'
+        )
+    );
+
     protected $expectedConfig = array(
         'default' => array(
             'default_state' => true,
@@ -59,6 +67,7 @@ class Provider extends Units\Test
         ),
     );
 
+
     protected $lists = array(
         'default' => array(
             '::1',
@@ -83,6 +92,8 @@ class Provider extends Units\Test
                 ->isEqualTo($this->lists)
             ->array($provider->getConfigs())
                 ->isEqualTo($this->expectedConfig)
+            ->array($provider->getPatterns())
+                ->isEqualTo($this->getExpectedPatterns())
         ;
     }
 
@@ -150,6 +161,17 @@ class Provider extends Units\Test
         ;
     }
 
+    protected function getExpectedPatterns()
+    {
+        return array(
+            'pattern1' => array(
+                'config' => 'default',
+                'path' => '/test',
+                'matcher' => new RequestMatcher('/test')
+            )
+        );
+    }
+
     /**
      * Get a provider mock
      *
@@ -166,6 +188,6 @@ class Provider extends Units\Test
             }
         };
 
-        return new Firewall\Provider($container, $this->lists, $this->configs);
+        return new Firewall\Provider($container, $this->lists, $this->configs, $this->patterns);
     }
 }
