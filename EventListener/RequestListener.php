@@ -31,15 +31,17 @@ class RequestListener extends Bundle
     */
     public function onRequest(GetResponseEvent $event)
     {
+        if ($this->provider->getPatterns()) {
+            foreach ($this->provider->getPatterns() as $pattern) {
 
-        foreach ($this->provider->getPatterns() as $pattern) {
+                if ($pattern['matcher']->matches($event->getRequest())) {
 
-            if ($pattern['matcher']->matches($event->getRequest())) {
-
-               $firewall = $this->provider->getFirewall($pattern['config']);
-               $firewall->handle();
+                   $firewall = $this->provider->getFirewall($pattern['config']);
+                   $firewall->handle();
+                }
             }
         }
+
 
     }
 
