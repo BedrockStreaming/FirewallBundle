@@ -31,8 +31,9 @@ class RequestListener extends Bundle
     */
     public function onRequest(GetResponseEvent $event)
     {
-        if ($this->provider->getPatterns()) {
-            foreach ($this->provider->getPatterns() as $pattern) {
+        $patterns = $this->provider->getPatterns();
+        if ($patterns) {
+            foreach ($patterns as $pattern) {
 
                 if ($pattern['matcher']->matches($event->getRequest())) {
 
