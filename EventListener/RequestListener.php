@@ -11,7 +11,6 @@ use M6Web\Bundle\FirewallBundle\Firewall\ProviderInterface;
 class RequestListener extends Bundle
 {
 
-
     /**
     * firewall provider
     */
@@ -42,8 +41,6 @@ class RequestListener extends Bundle
                 }
             }
         }
-
-
     }
 
 }

@@ -94,7 +94,6 @@ class Provider implements ProviderInterface
                 $this->loadPattern($patternName, $pattern);
             }
         }
-
     }
 
     /**
@@ -122,15 +121,12 @@ class Provider implements ProviderInterface
      */
     protected function loadPattern($patternName, array $pattern)
     {
-
         $pattern['matcher'] = new RequestMatcher($pattern['path']);
 
         $this->patterns[$patternName] = $pattern;
 
         return $this;
     }
-
-
 
     /**
      * Format an array of configurations with the model

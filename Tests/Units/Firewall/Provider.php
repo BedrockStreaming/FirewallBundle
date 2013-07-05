@@ -67,7 +67,6 @@ class Provider extends Units\Test
         ),
     );
 
-
     protected $lists = array(
         'default' => array(
             '::1',

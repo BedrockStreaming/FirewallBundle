@@ -5,8 +5,6 @@ require_once __DIR__.'/../../bootstrap.php';
 
 use atoum\AtoumBundle\Test\Units;
 
-use M6Web\Bundle\FirewallBundle\Controller;
-use M6Web\Bundle\FirewallBundle\Firewall\Provider;
 use M6Web\Bundle\FirewallBundle\EventListener\RequestListener as TestedClass;
 use Symfony\Component\HttpFoundation\RequestMatcher;
 
@@ -15,7 +13,6 @@ use Symfony\Component\HttpFoundation\RequestMatcher;
  */
 class RequestListener extends Units\Test
 {
-
 
     /**
      * test on request with a request matching pattern
@@ -26,12 +23,9 @@ class RequestListener extends Units\Test
     {
         $request = \Symfony\Component\HttpFoundation\Request::create('/test');
 
-
-
         $mockKernel = new \mock\Symfony\Component\HttpKernel\HttpKernelInterface();
 
         $event = new \Symfony\Component\HttpKernel\Event\GetResponseEvent($mockKernel, $request, null);
-
 
         $mockedProvider = $this->getMockedProvider();
 
@@ -56,12 +50,9 @@ class RequestListener extends Units\Test
     {
         $request = \Symfony\Component\HttpFoundation\Request::create('/toto');
 
-
-
         $mockKernel = new \mock\Symfony\Component\HttpKernel\HttpKernelInterface();
 
         $event = new \Symfony\Component\HttpKernel\Event\GetResponseEvent($mockKernel, $request, null);
-
 
         $mockedProvider = $this->getMockedProvider();
 
@@ -85,17 +76,13 @@ class RequestListener extends Units\Test
     {
         $request = \Symfony\Component\HttpFoundation\Request::create('/toto');
 
-
-
         $mockKernel = new \mock\Symfony\Component\HttpKernel\HttpKernelInterface();
 
         $event = new \Symfony\Component\HttpKernel\Event\GetResponseEvent($mockKernel, $request, null);
 
-
         $mockedProvider = $this->getMockedProvider();
 
         $mockedProvider->getMockController()->getPatterns = function() {
-
             return null;
         };
 
@@ -115,7 +102,6 @@ class RequestListener extends Units\Test
         $firewallProvider = new \mock\M6Web\Bundle\FirewallBundle\Firewall\ProviderInterface();
 
         $firewallProvider->getMockController()->getPatterns = function() {
-
             return array(
                 'pattern1' => array(
                     'path' => '/test',
@@ -126,7 +112,6 @@ class RequestListener extends Units\Test
         };
 
         $firewallProvider->getMockController()->getFirewall = function() {
-
             return new \mock\M6Web\Bundle\FirewallBundle\Firewall\FirewallInterface();
         };
 
