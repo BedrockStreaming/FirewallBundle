@@ -1,8 +1,9 @@
 <?php
 namespace M6Web\Bundle\FirewallBundle\Firewall;
 
-use Symfony\Component\HttpFoundation\Request,
-    Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestMatcher;
 
 /**
  * Firewall manager
@@ -21,6 +22,11 @@ class Provider
      * @var array|null $configs Predefined configurations
      */
     protected $configs;
+
+    /**
+     * @var array|null $configs Predefined patterns
+     */
+    protected $patterns;
 
     /**
      * @var string $firewallClass Class for firewall objects
@@ -72,7 +78,7 @@ class Provider
      * @param array              $lists     Lists of predefined ip
      * @param array              $configs   Predefined configurations
      */
-    public function __construct(ContainerInterface $container, array $lists = null, array $configs = null)
+    public function __construct(ContainerInterface $container, array $lists = null, array $configs = null, $patterns = null)
     {
         $this->lists        = $lists;
         $this->container    = $container;
@@ -82,6 +88,13 @@ class Provider
                 $this->loadConfig($configName, $config);
             }
         }
+
+        if (!empty($patterns)) {
+            foreach ($patterns as $patternName => $pattern) {
+                $this->loadPattern($patternName, $pattern);
+            }
+        }
+
     }
 
     /**
@@ -98,6 +111,26 @@ class Provider
 
         return $this;
     }
+
+    /**
+     * Load a formated pattern
+     *
+     * @param string $patternName Patern  name in $this->patterns
+     * @param array  $pattern     Pattern data
+     *
+     * @return $this
+     */
+    protected function loadPattern($patternName, array $pattern)
+    {
+
+        $pattern['matcher'] = new RequestMatcher($pattern['path']);
+
+        $this->patterns[$patternName] = $pattern;
+
+        return $this;
+    }
+
+
 
     /**
      * Format an array of configurations with the model
@@ -181,6 +214,16 @@ class Provider
     public function getConfigs()
     {
         return $this->configs;
+    }
+
+    /**
+     * get predefined patterns
+     *
+     * @return array
+     */
+    public function getPatterns()
+    {
+        return $this->patterns;
     }
 
     /**
