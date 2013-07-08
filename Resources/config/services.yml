@@ -1,8 +1,8 @@
 parameters:
-    m6web.firewall.lists:   ~
-    m6web.firewall.configs: ~
+    m6web.firewall.lists:    ~
+    m6web.firewall.configs:  ~
     m6web.firewall.patterns: ~
-    m6web.firewall.class:   M6Web\Bundle\FirewallBundle\Firewall\Firewall
+    m6web.firewall.class:    M6Web\Bundle\FirewallBundle\Firewall\Firewall
 
 services:
     m6web.firewall.provider:

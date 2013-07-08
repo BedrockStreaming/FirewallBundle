@@ -3,6 +3,11 @@ namespace M6Web\Bundle\FirewallBundle\Firewall;
 
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class FirewallInterface
+ *
+ * @package M6Web\Bundle\FirewallBundle\Firewall
+ */
 interface FirewallInterface
 {
     /**

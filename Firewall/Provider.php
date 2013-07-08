@@ -77,6 +77,7 @@ class Provider implements ProviderInterface
      * @param ContainerInterface $container Service container
      * @param array              $lists     Lists of predefined ip
      * @param array              $configs   Predefined configurations
+     * @param string             $patterns  Pattern
      */
     public function __construct(ContainerInterface $container, array $lists = null, array $configs = null, $patterns = null)
     {
@@ -302,7 +303,8 @@ class Provider implements ProviderInterface
     /**
      * Set up firewall lists from independent input
      *
-     * @param array $config Reference to the configuration
+     * @param FirewallInterface $firewall Firewall interface
+     * @param array             $config   Reference to the configuration
      *
      * @return $this
      */

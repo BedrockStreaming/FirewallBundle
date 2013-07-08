@@ -11,7 +11,6 @@ use M6Web\Bundle\FirewallBundle\Firewall\ProviderInterface;
  */
 class RequestListener extends Bundle
 {
-
     /**
     * firewall provider
     */
@@ -34,9 +33,7 @@ class RequestListener extends Bundle
         $patterns = $this->provider->getPatterns();
         if ($patterns) {
             foreach ($patterns as $pattern) {
-
                 if ($pattern['matcher']->matches($event->getRequest())) {
-
                    $firewall = $this->provider->getFirewall($pattern['config']);
                    $firewall->handle();
                 }

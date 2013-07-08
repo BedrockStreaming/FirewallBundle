@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\RequestMatcher;
  */
 class RequestListener extends Units\Test
 {
-
     /**
      * test on request with a request matching pattern
      *
@@ -21,15 +20,11 @@ class RequestListener extends Units\Test
      */
     public function testOnRequestWithValidRequest()
     {
-        $request = \Symfony\Component\HttpFoundation\Request::create('/test');
-
-        $mockKernel = new \mock\Symfony\Component\HttpKernel\HttpKernelInterface();
-
-        $event = new \Symfony\Component\HttpKernel\Event\GetResponseEvent($mockKernel, $request, null);
-
-        $mockedProvider = $this->getMockedProvider();
-
-        $requestListener = new TestedClass($mockedProvider);
+        $request            = \Symfony\Component\HttpFoundation\Request::create('/test');
+        $mockKernel         = new \mock\Symfony\Component\HttpKernel\HttpKernelInterface();
+        $event              = new \Symfony\Component\HttpKernel\Event\GetResponseEvent($mockKernel, $request, null);
+        $mockedProvider     = $this->getMockedProvider();
+        $requestListener    = new TestedClass($mockedProvider);
 
         $this->if($requestListener)
             ->then($requestListener->onRequest($event))
@@ -48,15 +43,11 @@ class RequestListener extends Units\Test
      */
     public function testOnRequestWithUnValidRequest()
     {
-        $request = \Symfony\Component\HttpFoundation\Request::create('/toto');
-
-        $mockKernel = new \mock\Symfony\Component\HttpKernel\HttpKernelInterface();
-
-        $event = new \Symfony\Component\HttpKernel\Event\GetResponseEvent($mockKernel, $request, null);
-
-        $mockedProvider = $this->getMockedProvider();
-
-        $requestListener = new TestedClass($mockedProvider);
+        $request            = \Symfony\Component\HttpFoundation\Request::create('/toto');
+        $mockKernel         = new \mock\Symfony\Component\HttpKernel\HttpKernelInterface();
+        $event              = new \Symfony\Component\HttpKernel\Event\GetResponseEvent($mockKernel, $request, null);
+        $mockedProvider     = $this->getMockedProvider();
+        $requestListener    = new TestedClass($mockedProvider);
 
         $this->if($requestListener)
             ->then($requestListener->onRequest($event))
@@ -74,18 +65,13 @@ class RequestListener extends Units\Test
      */
     public function testOnRequestWithNoPatterns()
     {
-        $request = \Symfony\Component\HttpFoundation\Request::create('/toto');
-
-        $mockKernel = new \mock\Symfony\Component\HttpKernel\HttpKernelInterface();
-
-        $event = new \Symfony\Component\HttpKernel\Event\GetResponseEvent($mockKernel, $request, null);
-
+        $request        = \Symfony\Component\HttpFoundation\Request::create('/toto');
+        $mockKernel     = new \mock\Symfony\Component\HttpKernel\HttpKernelInterface();
+        $event          = new \Symfony\Component\HttpKernel\Event\GetResponseEvent($mockKernel, $request, null);
         $mockedProvider = $this->getMockedProvider();
-
         $mockedProvider->getMockController()->getPatterns = function() {
             return null;
         };
-
         $requestListener = new TestedClass($mockedProvider);
 
         $this->if($requestListener)
