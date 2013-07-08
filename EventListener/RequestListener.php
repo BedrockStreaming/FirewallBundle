@@ -5,6 +5,7 @@ namespace M6Web\Bundle\FirewallBundle\EventListener;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use M6Web\Bundle\FirewallBundle\Firewall\ProviderInterface;
+
 /**
  * class RequestListener
  */
