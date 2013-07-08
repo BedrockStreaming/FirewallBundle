@@ -1,3 +1,5 @@
+# Configuration file for Coke, "Enjoy sniffing your code" : https://github.com/M6Web/Coke
+
 # Command used to launch PHP CodeSniffer (optional - default: phpcs)
 command=phpcs
 
