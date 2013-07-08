@@ -33,6 +33,10 @@ class M6WebFirewallExtension extends Extension
         if (!empty($config['lists']) ) {
             $this->listsLoad($config['lists'], $container);
         }
+
+        if (!empty($config['patterns']) ) {
+            $this->patternsLoad($config['patterns'], $container);
+        }
     }
 
     protected function configsLoad(array $config, ContainerBuilder $container)
@@ -43,6 +47,11 @@ class M6WebFirewallExtension extends Extension
     protected function listsLoad(array $config, ContainerBuilder $container)
     {
         $container->setParameter('m6web.firewall.lists', $config);
+    }
+
+    protected function patternsLoad(array $config, ContainerBuilder $container)
+    {
+        $container->setParameter('m6web.firewall.patterns', $config);
     }
 
     protected function flatLists(array &$configs)

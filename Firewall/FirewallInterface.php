@@ -3,6 +3,11 @@ namespace M6Web\Bundle\FirewallBundle\Firewall;
 
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class FirewallInterface
+ *
+ * @package M6Web\Bundle\FirewallBundle\Firewall
+ */
 interface FirewallInterface
 {
     /**
@@ -48,7 +53,7 @@ interface FirewallInterface
      *
      * @return $this
      */
-    public function addList(array $list, $listName, $state=null);
+    public function addList(array $list, $listName, $state);
 
     /**
      * Set default returned value

@@ -53,6 +53,16 @@ class Configuration implements ConfigurationInterface
                         ->prototype('scalar')->cannotBeEmpty()->end()
                     ->end()
                 ->end()
+                // Add pattern support
+                ->arrayNode('patterns')
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('config')->end()
+                            ->scalarNode('path')->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $treeBuilder;
