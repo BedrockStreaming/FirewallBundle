@@ -93,7 +93,7 @@ use M6Web\Bundle\FirewallBundle\Annotation\Firewall;
  */
 ```
 
-* `config` parameter sets which pre-defined configuration to use,
+* `config` parameter sets which pre-defined configuration to use,  
 * `actions` parameter sets which actions of the controller are protected (in case of Class Annotation).
 
 All default [set](#configuration) parameters can be overloaded by annotation.
