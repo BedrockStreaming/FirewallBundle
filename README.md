@@ -1,6 +1,6 @@
 # Firewall Bundle [![Build Status](https://secure.travis-ci.org/M6Web/FirewallBundle.png)](http://travis-ci.org/M6Web/FirewallBundle)
 
-This bundle provides IP filtering features for your Symfony 2 applications.  
+This bundle provides IP filtering features for your Symfony 2 applications.
 It uses the [Firewall component](https://github.com/M6Web/Firewall) and offers service and annotations configuration.
 
 ## Installation
@@ -61,6 +61,10 @@ m6web_firewall:
             entries: 			                    # Define custom IP's access state
                 '192.168.0.10': true 	                # "192.168.0.10" will be allowed
                 '192.168.0.20': false 	                # "192.168.0.20" will be rejected
+    patterns:                             # define some routing pattern to filter
+        api:
+            config: default                         # config associed to the path
+            path: /api                              # path to filter
 ```
 
 #### Global annotation
@@ -89,8 +93,8 @@ use M6Web\Bundle\FirewallBundle\Annotation\Firewall;
  */
 ```
 
-* `config` parameter sets which pre-defined configuration to use, 
-* `actions` parameter sets which actions of the controller are protected (in case of Class Annotation).  
+* `config` parameter sets which pre-defined configuration to use,  
+* `actions` parameter sets which actions of the controller are protected (in case of Class Annotation).
 
 All default [set](#configuration) parameters can be overloaded by annotation.
 
@@ -119,7 +123,7 @@ class MyBundleController extends Controller
 }
 ```
 
-* `myFirstAction` is protected by the [pre-defined configuration](#configuration) `default`.  
+* `myFirstAction` is protected by the [pre-defined configuration](#configuration) `default`.
 In this case we can set one (or many) firewall used for many actions.
 
 #### Method annotation
@@ -167,7 +171,7 @@ $ ./vendor/bin/atoum -d Tests/
 
 ## Credits
 
-Developped by the Cytron Team of [M6 Web](http://tech.m6web.fr/).  
+Developped by the Cytron Team of [M6 Web](http://tech.m6web.fr/).
 Tested with [atoum](http://atoum.org).
 
 ## License

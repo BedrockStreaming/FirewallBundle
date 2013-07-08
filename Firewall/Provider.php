@@ -1,8 +1,9 @@
 <?php
 namespace M6Web\Bundle\FirewallBundle\Firewall;
 
-use Symfony\Component\HttpFoundation\Request,
-    Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestMatcher;
 
 /**
  * Firewall manager
@@ -10,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request,
  *
  * @author Jérémy Jourdin <jjourdin.externe@m6.fr>
  */
-class Provider
+class Provider implements ProviderInterface
 {
     /**
      * @var array|null $lists Lists of predefined named ip
@@ -21,6 +22,11 @@ class Provider
      * @var array|null $configs Predefined configurations
      */
     protected $configs;
+
+    /**
+     * @var array|null $configs Predefined patterns
+     */
+    protected $patterns;
 
     /**
      * @var string $firewallClass Class for firewall objects
@@ -71,8 +77,9 @@ class Provider
      * @param ContainerInterface $container Service container
      * @param array              $lists     Lists of predefined ip
      * @param array              $configs   Predefined configurations
+     * @param string             $patterns  Pattern
      */
-    public function __construct(ContainerInterface $container, array $lists = null, array $configs = null)
+    public function __construct(ContainerInterface $container, array $lists = null, array $configs = null, $patterns = null)
     {
         $this->lists        = $lists;
         $this->container    = $container;
@@ -80,6 +87,12 @@ class Provider
         if (!empty($configs)) {
             foreach ($configs as $configName => $config) {
                 $this->loadConfig($configName, $config);
+            }
+        }
+
+        if (!empty($patterns)) {
+            foreach ($patterns as $patternName => $pattern) {
+                $this->loadPattern($patternName, $pattern);
             }
         }
     }
@@ -95,6 +108,23 @@ class Provider
     protected function loadConfig($configName, array $config)
     {
         $this->configs[$configName] = $this->normalizeConfig($config);
+
+        return $this;
+    }
+
+    /**
+     * Load a formated pattern
+     *
+     * @param string $patternName Patern  name in $this->patterns
+     * @param array  $pattern     Pattern data
+     *
+     * @return $this
+     */
+    protected function loadPattern($patternName, array $pattern)
+    {
+        $pattern['matcher'] = new RequestMatcher($pattern['path']);
+
+        $this->patterns[$patternName] = $pattern;
 
         return $this;
     }
@@ -184,6 +214,16 @@ class Provider
     }
 
     /**
+     * get predefined patterns
+     *
+     * @return array
+     */
+    public function getPatterns()
+    {
+        return $this->patterns;
+    }
+
+    /**
      * Configure a firewall
      *
      * @param FirewallInterface $firewall   Firewall
@@ -263,7 +303,8 @@ class Provider
     /**
      * Set up firewall lists from independent input
      *
-     * @param array $config Reference to the configuration
+     * @param FirewallInterface $firewall Firewall interface
+     * @param array             $config   Reference to the configuration
      *
      * @return $this
      */
