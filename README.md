@@ -54,7 +54,7 @@ m6web_firewall:
             default_state: true 		            # Default returned value (default: true)
             throw_error: true 		                # Throw an exception for rejected users (default: true)
             error_code: 403 		                # Exception status code (default: 403)
-            error_message: 'Forbiden' 	            # Exception message (default: Forbiden)
+            error_message: 'Forbidden' 	            # Exception message (default: Forbidden)
             lists: 			                        # Lists access state
                 self: true 			                    # "self" list records will be allowed by the firewall
                 lan: false 			                    # "lan" list records will be rejected by the firewall
