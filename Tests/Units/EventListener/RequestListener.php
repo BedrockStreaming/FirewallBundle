@@ -32,8 +32,8 @@ class RequestListener extends Units\Test
                 ->call('getPatterns')
                     ->once()
                 ->call('getFirewall')
-                    ->once()
-                    ->withArguments('configTest');
+                    ->withArguments('configTest')
+                    ->once();
     }
 
     /**

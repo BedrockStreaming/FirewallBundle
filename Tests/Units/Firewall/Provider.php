@@ -92,8 +92,7 @@ class Provider extends Units\Test
             ->array($provider->getConfigs())
                 ->isEqualTo($this->expectedConfig)
             ->array($provider->getPatterns())
-                ->isEqualTo($this->getExpectedPatterns())
-        ;
+                ->isEqualTo($this->getExpectedPatterns());
     }
 
     /**
@@ -133,8 +132,8 @@ class Provider extends Units\Test
                     ->once()
                 ->call('setThrowError')
                     ->withIdenticalArguments(false)
-                    ->once()
-        ;
+                    ->once();
+
         $this->assert
             ->array($addListCalls)
                 ->hasSize(4)
@@ -156,8 +155,7 @@ class Provider extends Units\Test
             ->array($addListCalls[3])
                 ->isEqualTo(array(array(
                     '127.0.0.1',
-                ), 'whitedOptions', true))
-        ;
+                ), 'whitedOptions', true));
     }
 
     protected function getExpectedPatterns()
@@ -179,11 +177,12 @@ class Provider extends Units\Test
     protected function getProvider()
     {
         $container = new \Mock\Symfony\Component\DependencyInjection\ContainerInterface();
-        $this->request = new \Mock\Symfony\Component\HttpFoundation\Request();
-        $container->getMockController()->get = function($serviceName) {
+        $request = new \Mock\Symfony\Component\HttpFoundation\Request();
+        $this->request = $request;
+        $container->getMockController()->get = function($serviceName) use ($request) {
             switch ($serviceName) {
                 case 'request':
-                    return $this->request;
+                    return $request;
             }
         };
 
