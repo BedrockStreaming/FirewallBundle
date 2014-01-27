@@ -17,7 +17,7 @@
     "target-dir": "M6Web/Bundle/FirewallBundle",
     "require": {
         "php": ">=5.4.0",
-        "m6web/firewall": "0.2.*"
+        "m6web/firewall": "0.3.*"
     },
     "require-dev": {
         "atoum/atoum": "master-dev",
