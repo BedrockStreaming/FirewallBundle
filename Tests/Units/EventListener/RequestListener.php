@@ -7,6 +7,7 @@ use atoum\AtoumBundle\Test\Units;
 
 use M6Web\Bundle\FirewallBundle\EventListener\RequestListener as TestedClass;
 use Symfony\Component\HttpFoundation\RequestMatcher;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
  * Request listener test
@@ -22,7 +23,7 @@ class RequestListener extends Units\Test
     {
         $request            = \Symfony\Component\HttpFoundation\Request::create('/test');
         $mockKernel         = new \mock\Symfony\Component\HttpKernel\HttpKernelInterface();
-        $event              = new \Symfony\Component\HttpKernel\Event\GetResponseEvent($mockKernel, $request, null);
+        $event              = new \Symfony\Component\HttpKernel\Event\GetResponseEvent($mockKernel, $request, HttpKernelInterface::MASTER_REQUEST);
         $mockedProvider     = $this->getMockedProvider();
         $requestListener    = new TestedClass($mockedProvider);
 
@@ -45,7 +46,7 @@ class RequestListener extends Units\Test
     {
         $request            = \Symfony\Component\HttpFoundation\Request::create('/toto');
         $mockKernel         = new \mock\Symfony\Component\HttpKernel\HttpKernelInterface();
-        $event              = new \Symfony\Component\HttpKernel\Event\GetResponseEvent($mockKernel, $request, null);
+        $event              = new \Symfony\Component\HttpKernel\Event\GetResponseEvent($mockKernel, $request, HttpKernelInterface::MASTER_REQUEST);
         $mockedProvider     = $this->getMockedProvider();
         $requestListener    = new TestedClass($mockedProvider);
 
@@ -59,6 +60,26 @@ class RequestListener extends Units\Test
     }
 
     /**
+     * test on request with a request not matching pattern
+     *
+     * @return Request
+     */
+    public function testOnRequestWithSubRequest()
+    {
+        $request            = \Symfony\Component\HttpFoundation\Request::create('/test');
+        $mockKernel         = new \mock\Symfony\Component\HttpKernel\HttpKernelInterface();
+        $event              = new \Symfony\Component\HttpKernel\Event\GetResponseEvent($mockKernel, $request, HttpKernelInterface::SUB_REQUEST);
+        $mockedProvider     = $this->getMockedProvider();
+        $requestListener    = new TestedClass($mockedProvider);
+
+        $this->if($requestListener)
+            ->then($requestListener->onRequest($event))
+            ->mock($mockedProvider)
+                ->call('getFirewall')
+                    ->never();
+    }
+
+    /**
      * test on request with no patterns
      *
      * @return Request
@@ -67,7 +88,7 @@ class RequestListener extends Units\Test
     {
         $request        = \Symfony\Component\HttpFoundation\Request::create('/toto');
         $mockKernel     = new \mock\Symfony\Component\HttpKernel\HttpKernelInterface();
-        $event          = new \Symfony\Component\HttpKernel\Event\GetResponseEvent($mockKernel, $request, null);
+        $event          = new \Symfony\Component\HttpKernel\Event\GetResponseEvent($mockKernel, $request, HttpKernelInterface::MASTER_REQUEST);
         $mockedProvider = $this->getMockedProvider();
         $mockedProvider->getMockController()->getPatterns = function() {
             return null;
