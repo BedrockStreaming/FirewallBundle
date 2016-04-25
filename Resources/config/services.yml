@@ -7,18 +7,18 @@ parameters:
 services:
     m6web.firewall.provider:
         class: M6Web\Bundle\FirewallBundle\Firewall\Provider
-        arguments: [@service_container, %m6web.firewall.lists%, %m6web.firewall.configs%, %m6web.firewall.patterns%]
+        arguments: ["@service_container", "%m6web.firewall.lists%", "%m6web.firewall.configs%", "%m6web.firewall.patterns%"]
         calls:
-            - ['setFirewallClass', [%m6web.firewall.class%]]
+            - ['setFirewallClass', ["%m6web.firewall.class%"]]
 
     m6web.firewall.controller_listener:
         class: M6Web\Bundle\FirewallBundle\Controller\Listener
         tags:
           - { name: kernel.event_listener, event: kernel.controller, method: onCoreController, priority:-255 }
-        arguments: [@annotation_reader, @m6web.firewall.provider]
+        arguments: ["@annotation_reader", "@m6web.firewall.provider"]
 
     m6web.firewall.request_listener:
         class: M6Web\Bundle\FirewallBundle\EventListener\RequestListener
         tags:
           - { name: kernel.event_listener, event: kernel.request, method: onRequest, priority:-255 }
-        arguments: [@m6web.firewall.provider]
+        arguments: ["@m6web.firewall.provider"]
