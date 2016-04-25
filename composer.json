@@ -17,11 +17,12 @@
     "target-dir": "M6Web/Bundle/FirewallBundle",
     "require": {
         "php": ">=5.4.0",
+        "ext-bcmath": "*",
         "m6web/firewall": "~1.0"
     },
     "require-dev": {
-        "atoum/atoum": "master-dev",
-        "atoum/atoum-bundle": "master-dev",
+        "atoum/atoum": "~2.6",
+        "atoum/atoum-bundle": "~1.4",
         "symfony/symfony": ">=2.2"
     }
 }
