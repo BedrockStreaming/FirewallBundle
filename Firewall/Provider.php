@@ -165,7 +165,14 @@ class Provider implements ProviderInterface
     public function getFirewall($configName = null, array $options = array(), Request $request = null)
     {
         if (!$request) {
-            $request = $this->container->get('request');
+            if ($this->container->has('request_stack')) {
+                $requestStack = $this->container->get('request_stack');
+                $request = $requestStack->getCurrentRequest();
+            } elseif ($this->container->has('request')) {
+                $request = $this->container->get('request');
+            } else {
+                throw new \Exception('Request object undefined');
+            }
         }
 
         $firewall = new $this->firewallClass();
