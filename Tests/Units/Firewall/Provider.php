@@ -179,10 +179,21 @@ class Provider extends Units\Test
         $container = new \Mock\Symfony\Component\DependencyInjection\ContainerInterface();
         $request = new \Mock\Symfony\Component\HttpFoundation\Request();
         $this->request = $request;
-        $container->getMockController()->get = function($serviceName) use ($request) {
+        $container->getMockController()->has = function ($serviceName) {
             switch ($serviceName) {
+                case 'request_stack':
+                    return true;
                 case 'request':
-                    return $request;
+                    return false;
+            }
+        };
+        $container->getMockController()->get = function ($serviceName) use ($request) {
+            switch ($serviceName) {
+                case 'request_stack':
+                    $requestStack = new \Symfony\Component\HttpFoundation\RequestStack();
+                    $requestStack->push($request);
+
+                    return $requestStack;
             }
         };
 
