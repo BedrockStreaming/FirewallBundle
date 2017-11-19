@@ -16,7 +16,7 @@
     },
     "target-dir": "M6Web/Bundle/FirewallBundle",
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=7.0.0",
         "ext-bcmath": "*",
         "m6web/firewall": "~1.0"
     },
