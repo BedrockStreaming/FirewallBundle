@@ -9,7 +9,7 @@ php:
 
 before_script:
   - wget http://getcomposer.org/composer.phar
-  - php composer.phar install
+  - php -d memory_limit=1G composer.phar install
 
 script:
   - vendor/bin/atoum -d Tests
