@@ -9,7 +9,7 @@ php:
 
 before_script:
   - wget http://getcomposer.org/composer.phar
-  - php composer.phar install --dev
+  - php composer.phar install
 
 script:
   - vendor/bin/atoum -d Tests
