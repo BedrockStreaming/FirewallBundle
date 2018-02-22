@@ -187,7 +187,7 @@ class Firewall extends FirewallComponent implements FirewallInterface
         $isAllowed = parent::handle($callBack);
 
         if (!$isAllowed && $this->throwError) {
-            throw new HttpException($this->errorCode, sprintf($this->errorMessage, $ipAddress));
+            throw new HttpException($this->errorCode, sprintf('%s [ip: %s]', $this->errorMessage, $ipAddress));
         }
 
         return $isAllowed;
