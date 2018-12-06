@@ -50,7 +50,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('lists')
                     ->useAttributeAsKey('name')
                     ->prototype('array')
-                        ->prototype('scalar')->cannotBeEmpty()->end()
+                        ->prototype('variable')->cannotBeEmpty()->end()
                     ->end()
                 ->end()
                 // Add pattern support
