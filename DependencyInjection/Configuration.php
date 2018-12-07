@@ -57,6 +57,8 @@ class Configuration implements ConfigurationInterface
                                     if (!is_array($list) && !is_string($list)) {
                                         throw new InvalidConfigurationException('Invalid configuration for path "m6web_firewall.lists": lists are any depth arrays of string values');
                                     }
+                                    
+                                    return $list;
                                 })
                             ->end()
                             ->cannotBeEmpty()
