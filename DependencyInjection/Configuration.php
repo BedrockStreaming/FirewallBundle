@@ -3,6 +3,7 @@ namespace M6Web\Bundle\FirewallBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder,
     Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 /**
  * This is the class that validates and merges configuration from your app/config files
@@ -50,7 +51,18 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('lists')
                     ->useAttributeAsKey('name')
                     ->prototype('array')
-                        ->prototype('scalar')->cannotBeEmpty()->end()
+                        ->prototype('variable')
+                            ->validate()
+                                ->always(function ($list) {
+                                    if (!is_array($list) && !is_string($list)) {
+                                        throw new InvalidConfigurationException('Invalid configuration for path "m6web_firewall.lists": lists are any depth arrays of string values');
+                                    }
+                                    
+                                    return $list;
+                                })
+                            ->end()
+                            ->cannotBeEmpty()
+                        ->end()
                     ->end()
                 ->end()
                 // Add pattern support
