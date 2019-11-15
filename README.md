@@ -1,7 +1,9 @@
 # Firewall Bundle [![Build Status](https://secure.travis-ci.org/M6Web/FirewallBundle.png)](http://travis-ci.org/M6Web/FirewallBundle)
 
-This bundle provides IP filtering features for your Symfony 2 applications.  
+This bundle provides IP filtering features for your Symfony applications.  
 It uses the [Firewall component](https://github.com/M6Web/Firewall) and offers service and annotations configuration.
+
+For implementation into a Symfony 3 or Symfony 4 application, please use the release `v3.0.0` at least.
 
 ## Installation
 
